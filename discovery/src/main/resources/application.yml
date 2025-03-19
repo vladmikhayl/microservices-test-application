@@ -1,0 +1,7 @@
+# the rest of the config is taken from config-server
+spring:
+  application:
+    name: discovery
+  config:
+    # where we get the config from (and if the config is unavailable, the application will start anyway)
+    import: optional:configserver:http://localhost:8888
