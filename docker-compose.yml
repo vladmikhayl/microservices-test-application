@@ -1,12 +1,25 @@
+version: "3.9"
+
 services:
+  postgres:
+    image: postgres:15
+    container_name: my_postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+
   zipkin:
-    container_name: zipkin
     image: openzipkin/zipkin
+    container_name: my_zipkin
+    restart: always
     ports:
       - "9411:9411"
-    networks:
-      - zipkin
 
-networks:
-  zipkin:
-    driver: bridge
+volumes:
+  pgdata:
